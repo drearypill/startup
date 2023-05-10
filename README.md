@@ -1,5 +1,3 @@
-# startup
-Notes for CS 260
 # Drearypill Designs
 
 ## Description Deliverable

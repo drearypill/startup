@@ -4,11 +4,17 @@
     <meta charset="UTF-8" />
     <!-- Tell browsers not to scale the viewport automatically -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Ultimate TicTacToe HTML</title>
     <link rel="icon" href="star.ico" />
+    <link rel="stylesheet" href="style.css" />
+      </head>
+<style>
+
+
+</style>
   </head>
   <body>
-    <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
       <h1>Ultimate TicTacToe<sup>&reg;</sup></h1>
 
@@ -30,14 +36,26 @@
 
     <main>
       <h1>Welcome</h1>
-      <p>Login to play</p>
-      <form method="get" action="play.html">
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Your name here" />
-        <button type="submit">Login</button>
-      </form>
+      
     </main>
-
+    <script src="app.js"></script>
+    <div class="container">
+        <h1>Tic-Tac-Toe</h1>
+        <div class="play-area">
+          <div id="block_0" class="block"></div>
+          <div id="block_1" class="block"></div>
+          <div id="block_2" class="block"></div>
+          <div id="block_3" class="block"></div>
+          <div id="block_4" class="block"></div>
+          <div id="block_5" class="block"></div>
+          <div id="block_6" class="block"></div>
+          <div id="block_7" class="block"></div>
+          <div id="block_8" class="block"></div>
+        </div>
+      </div>
+        <h2 id="winner"></h2>
+        <button onclick="reset_board()">RESET BOARD</button>
+      </div>
     <footer>
       <hr />
       <span class="text-reset">Lily Draper</span>

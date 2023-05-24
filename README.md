@@ -7,7 +7,7 @@
 Have you ever wanted to play TicTacToe with a friend but they love too far away? I am going to build a website that allows users from anywehre to connect and play together. People will be able to create new games and play with friends as well as keep track of winson this site.  
 
 ## Design
-<img width="490" alt="Screen Shot 2023-05-10 at 12 13 34 AM" src="https://github.com/drearypill/startup/assets/129228083/48e38977-df13-4bc6-afec-2263cbabee2a">
+<img width="490" alt="image" src="https://github.com/drearypill/startup/blob/main/tictactoestartupdeliverable.jpg">
 
 ## Key Features
 

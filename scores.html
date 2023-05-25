@@ -5,23 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TicTacToe</title>
     <link rel="icon" href="star.ico" />
+    <link rel="stylesheet" href="main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
   </head>
-  <body>
-    <header>
-      <h1>TicTacToe<sup>&reg;</sup></h1>
+</head>
+<body class="bg-dark text-light">
+  <header class="container-fluid">
+    <nav class="navbar fixed-top navbar-dark navi">
+      <a class="navbar-brand" href="#">TicTacToe</a>
 
-      <nav>
-        <menu>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="lobby.html">Lobby</a></li>
-          <li><a href="play.html">Play</a></li>
-          <li><a href="scores.html">Scores</a></li>
-          <li><a href="about.html">About</a></li>
-        </menu>
-      </nav>
-
-      <hr />
-    </header>
+      <menu class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="lobby.html">Lobby</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="play.html">Play</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="scores.html">Scores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+      </menu>
+    </nav>
+  </header>
 
     <main>
       <table>
@@ -57,10 +73,8 @@
     </main>
 
     <footer>
-      <hr />
       <span class="text-reset">Lily Draper</span>
-      <br />
-      <a href="https://github.com/drearypill/startup">My GitHub</a>
+      <a href="https://github.com/drearypill/startup">Source</a>
     </footer>
   </body>
 </html>

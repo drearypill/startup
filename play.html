@@ -66,24 +66,26 @@
       <!- More formatting with old style HTML ->
       <br />
     -->
-      <div>
+      <!--<div>
         <label style="height: 40px; font-size: larger">Your Turn!</label>
-        <!--put an element that says whos turn it is and switched with every input?-->
-      </div>
+        put an element that says whos turn it is and switched with every input?
+      </div>-->
 
-      <br />
       <div class="container">
         <div class="play-area">
-          <div onclick="clickedBoard(0)" id="block_0" class="block"></div>
-          <div onclick="clickedBoard(1)" id="block_1" class="block"></div>
-          <div onclick="clickedBoard(2)" id="block_2" class="block"></div>
-          <div onclick="clickedBoard(3)" id="block_3" class="block"></div>
-          <div onclick="clickedBoard(4)" id="block_4" class="block"></div>
-          <div onclick="clickedBoard(5)" id="block_5" class="block"></div>
-          <div onclick="clickedBoard(6)" id="block_6" class="block"></div>
-          <div onclick="clickedBoard(7)" id="block_7" class="block"></div>
-          <div onclick="clickedBoard(8)" id="block_8" class="block"></div>
+          <div id="block_0" class="block"></div>
+          <div id="block_1" class="block"></div>
+          <div id="block_2" class="block"></div>
+          <div id="block_3" class="block"></div>
+          <div id="block_4" class="block"></div>
+          <div id="block_5" class="block"></div>
+          <div id="block_6" class="block"></div>
+          <div id="block_7" class="block"></div>
+          <div id="block_8" class="block"></div>
         </div>
+        <h2 id="winner"></h2>
+        <br />
+        <button onclick="reset_board()">Play Again</button>
       </div>
 
       <br />
@@ -101,20 +103,11 @@
         Wins: 0 Ties: 0 Losses: 0
       </div>
     </main>
+    <script src="tictactoe.js"></script>
 
     <footer>
       <span class="text-reset">Lily Draper</span>
       <a class="github" href="https://github.com/drearypill/startup">Source</a>
     </footer>
   </body>
-
-  <script>
-    var ticTacToeBoardArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    function clickedBoard(index) {
-      ticTacToeBoardArray = [index];
-      var myDiv = document.getElementById(`block_${index}`);
-      myDiv.innerHTML = "X";
-    }
-  </script>
 </html>

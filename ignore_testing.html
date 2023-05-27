@@ -8,60 +8,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>TicTacToe</title>
     <link rel="icon" href="star.ico" />
-    <link rel="stylesheet" href="style.css" />
-      </head>
-<style>
-
-
-</style>
+    <link rel="stylesheet" href="testing.css" />
   </head>
   <body>
-    <header>
-      <h1>Ultimate TicTacToe<sup>&reg;</sup></h1>
-
-      <!-- Navigation elements -->
-      <nav>
-        <!-- Menu is a semantic alternative to <ul> that represents an interaction -->
-        <menu>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="lobby.html">Lobby</a></li>
-          <li><a href="play.html">Play</a></li>
-          <li><a href="scores.html">Scores</a></li>
-          <li><a href="about.html">About</a></li>
-        </menu>
-      </nav>
-
-      <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
-      <hr />
-    </header>
-
-    <main>
-      <h1>Welcome</h1>
-      
-    </main>
-    <script src="app.js"></script>
     <div class="container">
-        <h1>Tic-Tac-Toe</h1>
-        <div class="play-area">
-          <div id="block_0" class="block"></div>
-          <div id="block_1" class="block"></div>
-          <div id="block_2" class="block"></div>
-          <div id="block_3" class="block"></div>
-          <div id="block_4" class="block"></div>
-          <div id="block_5" class="block"></div>
-          <div id="block_6" class="block"></div>
-          <div id="block_7" class="block"></div>
-          <div id="block_8" class="block"></div>
-        </div>
+      <h1>Tic-Tac-Toe</h1>
+      <div class="play-area">
+        <div id="block_0" class="block"></div>
+        <div id="block_1" class="block"></div>
+        <div id="block_2" class="block"></div>
+        <div id="block_3" class="block"></div>
+        <div id="block_4" class="block"></div>
+        <div id="block_5" class="block"></div>
+        <div id="block_6" class="block"></div>
+        <div id="block_7" class="block"></div>
+        <div id="block_8" class="block"></div>
       </div>
-        <h2 id="winner"></h2>
-        <button onclick="reset_board()">RESET BOARD</button>
-      </div>
-    <footer>
-      <hr />
-      <span class="text-reset">Lily Draper</span>
-      <br />
-      <a href="https://github.com/drearypill/startup">My GitHub</a>
-    </footer>
+      <h2 id="winner"></h2>
+      <button onclick="reset_board()">Play Again</button>
+    </div>
+    <script src="tictactoe.js"></script>
   </body>
 </html>

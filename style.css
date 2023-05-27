@@ -11,22 +11,6 @@
   justify-content: center;
 }
 
-button {
-  outline: none;
-  border: 4px solid rgb(128, 0, 49);
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  background: none;
-  transition: all 0.2s ease-in-out;
-}
-
-button:hover {
-  cursor: pointer;
-  background: "X";
-  color: white;
-}
-
 .play-area {
   display: grid;
   width: 300px;

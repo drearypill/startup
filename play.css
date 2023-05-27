@@ -117,5 +117,5 @@
 
 .block:hover + .hide {
   display: block;
-  color: red;
+  color: rgb(198, 198, 198);
 }

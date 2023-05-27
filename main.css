@@ -95,3 +95,34 @@ footer a {
   background-color: rgb(34, 34, 34);
   color: white;
 }
+
+/* CSS */
+.button-63 {
+  align-items: center;
+  /*background-image: linear-gradient(144deg, #9f9f9f, #5b42f3 50%, #00ddeb);*/
+  background-color: rgb(221, 221, 221);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #373737;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 19px 24px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button-63:active,
+.button-63:hover {
+  outline: 0;
+}

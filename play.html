@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="play.css" />
     <link rel="stylesheet" href="style.css" />
 
-
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,42 +16,47 @@
       crossorigin="anonymous"
     />
   </head>
-<body class="bg-dark text-light">
-  <header class="container-fluid">
-    <nav class="navbar fixed-top navbar-dark navi">
-      <a class="navbar-brand" href="#">TicTacToe</a>
+  <body class="bg-dark text-light">
+    <header class="container-fluid">
+      <nav class="navbar fixed-top navbar-dark navi">
+        <a class="navbar-brand" href="#">TicTacToe</a>
 
-      <menu class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="lobby.html">Lobby</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="play.html">Play</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="scores.html">Scores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
-        </li>
-      </menu>
-    </nav>
-  </header>
+        <menu class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lobby.html">Lobby</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="play.html">Play</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+        </menu>
+      </nav>
+    </header>
 
     <main>
-      <div style="width: 100%; padding: 24px; justify-content: space-between; display: flex;  ">
-<div>
-        Player X:
-        <span class="player-name">Lily</span>
+      <div
+        style="
+          width: 100%;
+          padding: 24px;
+          justify-content: space-between;
+          display: flex;
+        "
+      >
+        <div>
+          Player X:
+          <span class="player-name">Your Name</span>
+        </div>
+        <div>
+          Player O:
+          <span class="player-name">Opponent Name</span>
+        </div>
       </div>
-      <div>
-        Player O:
-        <span class="player-name">Jackson</span>
-      </div>
-    </div><!-- 
+      <!-- 
       <ul class="notification">
         <li class="player-name">Tim started a new game</li>
         <li class="player-name">Ada joined Tim's game</li>
@@ -61,9 +65,9 @@
 
       <!- More formatting with old style HTML ->
       <br />
-
-      <div> -->
-        <label style="height: 40px; font-size: larger;">Your Turn!</label>
+    -->
+      <div>
+        <label style="height: 40px; font-size: larger">Your Turn!</label>
         <!--put an element that says whos turn it is and switched with every input?-->
       </div>
 
@@ -81,35 +85,36 @@
           <div onclick="clickedBoard(8)" id="block_8" class="block"></div>
         </div>
       </div>
-      
-      </div>
 
       <br />
-<div style="height: 80px; width: 100%; background-color: black; color:white; padding-left: 28px; padding-right: 8px; align-items: center; display: flex; ">
-  Scores: play1
-</div>
+      <div
+        style="
+          text-align: center;
+          height: 80px;
+          width: 100%;
+          background-color: rgb(79, 79, 79);
+          color: white;
+          padding-top: 25px;
+          align-items: center;
+        "
+      >
+        Wins: 0 Ties: 0 Losses: 0
+      </div>
     </main>
 
     <footer>
       <span class="text-reset">Lily Draper</span>
-      <a class= "github" href="https://github.com/drearypill/startup">Source</a>
+      <a class="github" href="https://github.com/drearypill/startup">Source</a>
     </footer>
   </body>
 
-
-
-
-
-
   <script>
-    var ticTacToeBoardArray=[0,0,0,0,0,0,0,0,0]
-    
+    var ticTacToeBoardArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-function clickedBoard(index){
-  ticTacToeBoardArray=[index]
-  var myDiv = document.getElementById(`block_${index}`);
-  myDiv.innerHTML ="X"
-}
-
+    function clickedBoard(index) {
+      ticTacToeBoardArray = [index];
+      var myDiv = document.getElementById(`block_${index}`);
+      myDiv.innerHTML = "X";
+    }
   </script>
 </html>

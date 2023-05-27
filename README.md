@@ -43,3 +43,13 @@ For this deliverable I added the application structure.
 - **Database** - The total wins and losses are pushed and pulled from database for the scores
 - **WebSocket** - The gameboard displays realtime game.
 
+## CSS deliverable
+
+For this deliverable I properly styled the application into its final appearance.
+
+- **Header, footer, and main content body** - Simple and consistent throughout pages
+- **Navigation elements** - I have the main title underlined and changed the color for the active tab.
+- **Responsive to window resizing** - My app looks great on all window sizes and devices
+- **Application elements** - Used good contrast and whitespace
+- **Application text content** - Consistent fonts
+- **Application images** - Made a cute lil border for the image

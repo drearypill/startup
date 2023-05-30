@@ -7,22 +7,45 @@ let play_board = ["", "", "", "", "", "", "", "", ""];
 const board_container = document.querySelector(".play-area");
 
 const winner_statement = document.getElementById("winner");
+var currentname = localStorage.getItem("userName");
 
 async function getPlayerName() {
   const storageName = await localStorage.getItem("userName");
   return storageName;
 }
 async function getWins() {
-  const wins = await localStorage.getItem("wins");
-  return wins;
+  const playerListString = await localStorage.getItem("playerList");
+  const playerList = JSON.parse(playerListString) || [];
+  const playerName = localStorage.getItem("userName"); // Replace with the desired player name
+
+  const player = playerList.find((player) => player.playerName === playerName);
+  if (player) {
+    return player.wins;
+  }
+  return 0; // Return 0 if the player is not found
 }
+
 async function getLosses() {
-  const losses = await localStorage.getItem("losses");
-  return losses;
+  const playerListString = await localStorage.getItem("playerList");
+  const playerList = JSON.parse(playerListString) || [];
+  const playerName = localStorage.getItem("userName"); // Replace with the desired player name
+
+  const player = playerList.find((player) => player.playerName === playerName);
+  if (player) {
+    return player.losses;
+  }
+  return 0; // Return 0 if the player is not found
 }
 async function getTies() {
-  const ties = await localStorage.getItem("ties");
-  return ties;
+  const playerListString = await localStorage.getItem("playerList");
+  const playerList = JSON.parse(playerListString) || [];
+  const playerName = localStorage.getItem("userName"); // Replace with the desired player name
+
+  const player = playerList.find((player) => player.playerName === playerName);
+  if (player) {
+    return player.ties;
+  }
+  return 0; // Return 0 if the player is not found
 }
 async function updateWinsSpan() {
   const wins = await getWins();
@@ -40,7 +63,7 @@ async function updateTiesSpan() {
   tiesSpan.textContent = ties;
 }
 
-let playerList = [];
+let playerList = JSON.parse(localStorage.getItem("playerList")) || [];
 
 // Load player list from localStorage
 function loadPlayerList() {
@@ -59,6 +82,15 @@ async function createPlayer(playerName) {
   try {
     // Simulate an asynchronous operation (e.g., fetching data from a server)
     await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const existingPlayerIndex = playerList.findIndex(
+      (player) => player.playerName === playerName
+    );
+
+    if (existingPlayerIndex !== -1) {
+      console.log("Player already exists");
+      return playerList[existingPlayerIndex];
+    }
 
     // Create the player object with scores set to 0
     const player = {
@@ -80,6 +112,7 @@ async function createPlayer(playerName) {
     throw error;
   }
 }
+
 var currentname = localStorage.getItem("userName");
 createPlayer(currentname);
 
@@ -177,8 +210,9 @@ const check_for_winner = () => {
     var value = localStorage.getItem("wins");
     value = parseInt(value) + 1;
     localStorage.setItem("wins", value);
-    updateWinsSpan();
     incrementWins(currentname);
+
+    updateWinsSpan();
   } else if (res == computer) {
     winner.innerText = "You Lost :(";
     winner.classList.add("computerWin");
@@ -186,16 +220,16 @@ const check_for_winner = () => {
     var value = localStorage.getItem("losses");
     value = parseInt(value) + 1;
     localStorage.setItem("losses", value);
-    updateLossesSpan();
     incrementLosses(currentname);
+    updateLossesSpan();
   } else if (board_full) {
     winner.innerText = "Draw!";
     winner.classList.add("draw");
     var value = localStorage.getItem("ties");
     value = parseInt(value) + 1;
     localStorage.setItem("ties", value);
-    updateTiesSpan();
     incrementTies(currentname);
+    updateTiesSpan();
   }
 };
 

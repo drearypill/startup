@@ -8,6 +8,10 @@ const board_container = document.querySelector(".play-area");
 
 const winner_statement = document.getElementById("winner");
 
+async function getPlayerName() {
+  const storageName = await localStorage.getItem("userName");
+  return storageName;
+}
 async function getWins() {
   const wins = await localStorage.getItem("wins");
   return wins;
@@ -34,6 +38,82 @@ async function updateTiesSpan() {
   const ties = await getTies();
   const tiesSpan = document.getElementById("ties-id");
   tiesSpan.textContent = ties;
+}
+
+let playerList = [];
+
+// Load player list from localStorage
+function loadPlayerList() {
+  const playerListString = localStorage.getItem("playerList");
+  if (playerListString) {
+    playerList = JSON.parse(playerListString);
+  }
+}
+
+// Save player list to localStorage
+function savePlayerList() {
+  localStorage.setItem("playerList", JSON.stringify(playerList));
+}
+
+async function createPlayer(playerName) {
+  try {
+    // Simulate an asynchronous operation (e.g., fetching data from a server)
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Create the player object with scores set to 0
+    const player = {
+      playerName: playerName,
+      wins: 0,
+      losses: 0,
+      ties: 0,
+    };
+
+    // Add the player object to the playerList
+    playerList.push(player);
+
+    // Save the updated player list to localStorage
+    savePlayerList();
+
+    return player;
+  } catch (error) {
+    console.error("Error creating player:", error);
+    throw error;
+  }
+}
+var currentname = localStorage.getItem("userName");
+createPlayer(currentname);
+
+// Function to edit the wins count of a player
+function incrementWins(playerName) {
+  const player = playerList.find((p) => p.playerName === playerName);
+  if (player) {
+    player.wins += 1;
+    savePlayerList(); // Save the updated player list to localStorage
+    return player;
+  }
+  return null; // Player not found
+}
+
+// Function to edit the losses count of a player
+function incrementLosses(playerName) {
+  const player = playerList.find((p) => p.playerName === playerName);
+  if (player) {
+    player.losses += 1;
+    savePlayerList(); // Save the updated player list to localStorage
+    return player;
+  }
+  return null; // Player not found
+}
+
+// Function to edit the losses count of a player
+function incrementTies(playerName) {
+  const player = playerList.find((p) => p.playerName === playerName);
+  if (player) {
+    player.ties += 1;
+    savePlayerList(); // Save the updated player list to localStorage
+    return player;
+  }
+  return null; // Player not found
 }
 
 check_board_complete = () => {
@@ -98,6 +178,7 @@ const check_for_winner = () => {
     value = parseInt(value) + 1;
     localStorage.setItem("wins", value);
     updateWinsSpan();
+    incrementWins(currentname);
   } else if (res == computer) {
     winner.innerText = "You Lost :(";
     winner.classList.add("computerWin");
@@ -106,6 +187,7 @@ const check_for_winner = () => {
     value = parseInt(value) + 1;
     localStorage.setItem("losses", value);
     updateLossesSpan();
+    incrementLosses(currentname);
   } else if (board_full) {
     winner.innerText = "Draw!";
     winner.classList.add("draw");
@@ -113,6 +195,7 @@ const check_for_winner = () => {
     value = parseInt(value) + 1;
     localStorage.setItem("ties", value);
     updateTiesSpan();
+    incrementTies(currentname);
   }
 };
 
@@ -142,11 +225,14 @@ const addPlayerMove = (e) => {
 
 const addComputerMove = () => {
   if (!board_full) {
-    do {
-      selected = Math.floor(Math.random() * 9);
-    } while (play_board[selected] != "");
-    play_board[selected] = computer;
-    game_loop();
+    setTimeout(() => {
+      do {
+        selected = Math.floor(Math.random() * 9);
+      } while (play_board[selected] != "");
+      play_board[selected] = computer;
+      game_loop();
+    }, 500);
+    board_full = true; // 2000 milliseconds = 2 seconds
   }
 };
 

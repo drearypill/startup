@@ -47,15 +47,18 @@
           display: flex;
         "
       >
-        <div>
-          Player X:
-          <span class="player-name">Your Name</span>
+        <div class="players">
+          <p>
+            Player X:
+            <span id="player-name"></span>
+          </p>
         </div>
         <div>
           Player O:
-          <span class="player-name">Opponent Name</span>
+          <span id="opponent-name"></span>
         </div>
       </div>
+
       <!-- 
       <ul class="notification">
         <li class="player-name">Tim started a new game</li>
@@ -83,6 +86,7 @@
           <div id="block_7" class="block"></div>
           <div id="block_8" class="block"></div>
         </div>
+        <br />
         <h2 id="winner"></h2>
         <br />
         <button onclick="reset_board()">Play Again</button>
@@ -100,10 +104,17 @@
           align-items: center;
         "
       >
-        Wins: 0 Ties: 0 Losses: 0
+        Wins: <span id="wins-id"></span> Ties:
+        <span id="ties-id"></span> Losses: <span id="losses-id"></span>
       </div>
     </main>
     <script src="tictactoe.js"></script>
+    <script src="play.js"></script>
+    <script>
+      updateWinsSpan();
+      updateLossesSpan();
+      updateTiesSpan();
+    </script>
 
     <footer>
       <span class="text-reset">Lily Draper</span>

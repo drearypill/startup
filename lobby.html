@@ -47,7 +47,7 @@
       "
     >
       <h4 style="text-align: center; margin-bottom: 60px; font-size: 46px">
-        Welcome [Player Name]
+        Welcome <span id="player-name"></span>!
       </h4>
       <div style="display: flex; width: 100%; justify-content: space-evenly">
         <div style="width: 200px">
@@ -59,11 +59,32 @@
         </div>
         <div style="display: flex; flex-direction: column; align-items: center">
           <p style="text-align: center">Or Join Game</p>
-          <select>
-            <option>Name 1</option>
-            <option>Name 2</option>
-            <option>Name 3</option>
+          <!-- <fieldset id="gamelist">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="varRadio"
+                value=""
+                checked
+              />
+              <label class="form-check-label" for="radio1">New game</label>
+            </div>
+          </fieldset>
+          <button type="submit" class="btn btn-primary" onclick="beginGame();">
+            Go! -->
+          <select
+            class="custom-select"
+            id="playerSelect"
+            onchange="storeSelection(this.value)"
+          >
+            <option value="Mystery Player">Select a Player</option>
+            <option value="Lesley">Lesley</option>
+            <option value="Freedrick">Freedrick</option>
+            <option value="Jackson">Jackson</option>
           </select>
+
+          <script></script>
           <br />
           <div>
             <button
@@ -76,6 +97,8 @@
         </div>
       </div>
     </div>
+    <script src="play.js"></script>
+    <script src="lobby.js"></script>
 
     <footer>
       <span class="text-reset">Lily Draper</span>

@@ -1,5 +1,5 @@
-const player = "O";
-const computer = "X";
+const player = "X";
+const computer = "O";
 
 let board_full = false;
 let play_board = ["", "", "", "", "", "", "", "", ""];
@@ -7,6 +7,34 @@ let play_board = ["", "", "", "", "", "", "", "", ""];
 const board_container = document.querySelector(".play-area");
 
 const winner_statement = document.getElementById("winner");
+
+async function getWins() {
+  const wins = await localStorage.getItem("wins");
+  return wins;
+}
+async function getLosses() {
+  const losses = await localStorage.getItem("losses");
+  return losses;
+}
+async function getTies() {
+  const ties = await localStorage.getItem("ties");
+  return ties;
+}
+async function updateWinsSpan() {
+  const wins = await getWins();
+  const winsSpan = document.getElementById("wins-id");
+  winsSpan.textContent = wins;
+}
+async function updateLossesSpan() {
+  const losses = await getLosses();
+  const lossesSpan = document.getElementById("losses-id");
+  lossesSpan.textContent = losses;
+}
+async function updateTiesSpan() {
+  const ties = await getTies();
+  const tiesSpan = document.getElementById("ties-id");
+  tiesSpan.textContent = ties;
+}
 
 check_board_complete = () => {
   let flag = true;
@@ -46,19 +74,45 @@ const check_match = () => {
   return "";
 };
 
+//check for and create key pairs
+if (localStorage.getItem("wins")) {
+} else {
+  const wins = localStorage.setItem("wins", 0);
+}
+if (localStorage.getItem("losses")) {
+} else {
+  const losses = localStorage.setItem("losses", 0);
+}
+if (localStorage.getItem("ties")) {
+} else {
+  const ties = localStorage.setItem("ties", 0);
+}
+
 const check_for_winner = () => {
   let res = check_match();
   if (res == player) {
     winner.innerText = "You Win!";
     winner.classList.add("playerWin");
     board_full = true;
+    var value = localStorage.getItem("wins");
+    value = parseInt(value) + 1;
+    localStorage.setItem("wins", value);
+    updateWinsSpan();
   } else if (res == computer) {
     winner.innerText = "You Lost :(";
     winner.classList.add("computerWin");
     board_full = true;
+    var value = localStorage.getItem("losses");
+    value = parseInt(value) + 1;
+    localStorage.setItem("losses", value);
+    updateLossesSpan();
   } else if (board_full) {
     winner.innerText = "Draw!";
     winner.classList.add("draw");
+    var value = localStorage.getItem("ties");
+    value = parseInt(value) + 1;
+    localStorage.setItem("ties", value);
+    updateTiesSpan();
   }
 };
 

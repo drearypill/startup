@@ -62,3 +62,13 @@ For this deliverable I made my application functional for the user to input vari
 - **database** - Displayed the user scores of games. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later. Example data for opponents will later be from database
 - **WebSocket** - I used delays to asynchronously simulate the opponent's moves. This will be replaced with WebSocket messages later.
 - **application logic** - The cpu is currently just picking a random square to play against you with a slight delay.
+
+## Service deliverable
+
+For this deliverable I created an HTTP service to host my frontend and provide backend endpoints.
+
+- **Node.js/Express HTTP service** - done!
+- **Static middleware for frontend** - done!
+- **Calls to third party endpoints** - I called the random quote 3rd party on the about page
+- **Backend service endpoints** - Created list players that stores people you can play with.
+- **Frontend calls service endpoints** - I did this using the fetch function.

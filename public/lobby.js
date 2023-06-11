@@ -1,51 +1,30 @@
-// const playerNameEl = document.querySelector(".player-name");
-// playerNameEl.textContent = localStorage.getItem("userName") ?? "Mystery Player";
+//populate the dropdown menu
+const dropdown = document.querySelector("#playerSelect");
+async function loadPlayers() {
+  let players = ["Thomas", "Lesley", "Jackson"];
 
-// function beginGame() {
-//   const checkedBox = document.querySelector('input[name="varRadio"]:checked');
-//   localStorage.setItem("opponentName", checkedBox.value);
-//   window.location.href = "play.html";
-// }
-
-// // simulate database list retrieval
-// const retrievedData = ["Ada", "Tim"];
-
-// const radioGroupEl = document.querySelector("#gamelist");
-// radioGroupEl.innerHTML += retrievedData
-//   .map(
-//     (name) => `
-// <div class="form-check">
-// <input class="form-check-input" type="radio" id="${name}" name="varRadio" value="${name}" />
-// <label class="form-check-label" for="${name}">${name}</label>
-// </div>
-// `
-//   )
-//   .join("");
-
-// (function () {
-//   "#edit".change(function () {
-//     localStorage.setItem("opponenetName", this.value);
-//   });
-//   // if (localStorage.getItem("todoData")) {
-//   //   "#edit".val(localStorage.getItem("todoData"));
-//   // }
-// });
-
-// function play() {
-//   localStorage.setItem("opponentName", this.value);
-//   window.location.href = "play.html";
-// }
-
-// Get the <select> element
-const dropdown = document.getElementById("playerSelect");
-
-// Function to store the selected value in local storage
-function storeSelection(value) {
-  localStorage.setItem("opponentName", value);
+  const response = await fetch("/api/players");
+  players = await response.json();
+  for (player of players) {
+    const name = document.createElement("option");
+    name.textContent = player;
+    dropdown.appendChild(name);
+  }
 }
-
-// Check if a previously selected option is stored in local storage
-if (localStorage.getItem("opponentName")) {
-  // Set the dropdown's value to the stored value
-  dropdown.value = localStorage.getItem("opponentName");
+loadPlayers();
+// Get the <select> element
+user = localStorage.getItem("userName");
+// Function to store the selected value in local storage
+function storeSelection() {
+  localStorage.setItem("opponentName", dropdown.value);
+  window.location.href = "play.html";
+}
+async function create() {
+  localStorage.setItem("opponentName", "Mystery Player");
+  const response = await fetch("/api/player", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ user }),
+  });
+  window.location.href = "play.html";
 }

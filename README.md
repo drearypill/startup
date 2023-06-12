@@ -80,3 +80,12 @@ For this deliverable I stored and retrieved data from MongoDB.
 - **MongoDB Atlas database created** - done!
 - **Endpoints for data** - My stubbed out endpoints now process the data and send it to Mongo.
 - **Stores data in MongoDB** - done!
+
+## Login deliverable
+
+For this deliverable I added user registration and authentication.
+
+- **User registration** - Creates a new account in the database.
+- **existing user** - Verifies the user's name and password from data stored in the database
+- **Use MongoDB to store credentials** - done!
+- **Restricts functionality** - You cannot play until you have logged in.

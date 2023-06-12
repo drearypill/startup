@@ -7,7 +7,6 @@
     <title>TicTacToe</title>
     <link rel="icon" href="star.ico" />
     <link rel="stylesheet" href="main.css" />
-    <script src="login.js"></script>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -37,52 +36,75 @@
         </menu>
       </nav>
     </header>
-
-    <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
-    <div
-      style="
-        height: 82vh;
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        background-color: rgb(62, 62, 62);
-      "
-    >
-      <div style="height: 100%">
-        <h1 style="text-align: center; font-size: 66px; padding-top: 100px">
-          Welcome
-        </h1>
-        <p style="text-align: center">Login to play</p>
-          <input
-            style="
-              border-radius: 4px;
-              outline: none;
-              border: none;
-              padding-left: 5px;
-            "
-            type="text"
-            id="name"
-            placeholder="Your name here"
-          />
-          <button
-            class="g"
-            style="
-              height: 27px;
-              border-radius: 4px;
-              border: none;
-              background-color: rgb(232, 232, 232);
-            "
-            onclick="login()"
-          >
+    <main class="container-fluid bg-secondary text-center">
+      <div>
+        <h1>Welcome to Simon</h1>
+        <!-- Displayed when needing authentication -->
+        <div id="loginControls" style="display: none">
+          <div class="input-group mb-3">
+            <span class="input-group-text">@</span>
+            <input
+              class="form-control"
+              type="text"
+              id="userName"
+              placeholder="your@email.com"
+            />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">🔒</span>
+            <input
+              class="form-control"
+              type="password"
+              id="userPassword"
+              placeholder="password"
+            />
+          </div>
+          <button type="button" class="btn btn-primary" onclick="loginUser()">
             Login
           </button>
-        </form>
+          <button type="button" class="btn btn-primary" onclick="createUser()">
+            Create
+          </button>
+        </div>
+        <!-- Displayed when ready to play -->
+        <div id="playControls" style="display: none">
+          <div id="playerName"></div>
+          <button type="button" class="btn btn-primary" onclick="play()">
+            Play
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="logout()">
+            Logout
+          </button>
+        </div>
       </div>
-    </div>
 
+      <!-- Error dialog -->
+      <div class="modal fade" id="msgModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-dark">
+            <div class="modal-body">error message here</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <footer>
       <span class="text-reset">Lily Draper</span>
       <a class="github" href="https://github.com/drearypill/startup">Source</a>
     </footer>
   </body>
+  <script src="login.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
 </html>

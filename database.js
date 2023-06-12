@@ -25,7 +25,7 @@ async function addPlayer(player) {
 async function getPlayers() {
   const cursor = playerCollection.find();
   const list = await cursor.toArray();
-  return list.map(getName);
+  return list.map(({ user }) => user);
 }
 
 module.exports = { addPlayer, getPlayers };

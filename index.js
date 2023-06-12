@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const DB = require("./database.js");
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -14,25 +15,16 @@ app.use(express.static("public"));
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-// GetScores
-apiRouter.get("/scores", (_req, res) => {
-  res.send(scores);
-});
-
-// SubmitScore
-apiRouter.post("/score", (req, res) => {
-  scores = updateScores(req.body, scores);
-  res.send(scores);
-});
-
 // GetPlayers
-apiRouter.get("/players", (_req, res) => {
+apiRouter.get("/players", async (_req, res) => {
+  const players = await DB.getPlayers();
   res.send(players);
 });
 
 // SubmitPlayer
-apiRouter.post("/player", (req, res) => {
-  players = updatePlayers(req.body, players);
+apiRouter.post("/player", async (req, res) => {
+  await DB.addPlayer(req.body);
+  const players = await DB.getPlayers();
   res.send(players);
 });
 
@@ -45,11 +37,11 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-let players = ["Thomas", "Lesley", "Jackson"];
-function updatePlayers({ user }, players) {
-  if (!players.includes(user)) {
-    players.push(user);
-  }
+// let players = ["Thomas", "Lesley", "Jackson"];
+// function updatePlayers({ user }, players) {
+//   if (!players.includes(user)) {
+//     players.push(user);
+//   }
 
-  return players;
-}
+//   return players;
+// }

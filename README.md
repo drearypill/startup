@@ -72,3 +72,11 @@ For this deliverable I created an HTTP service to host my frontend and provide b
 - **Calls to third party endpoints** - I called the random quote 3rd party on the about page
 - **Backend service endpoints** - Created list players that stores people you can play with.
 - **Frontend calls service endpoints** - I did this using the fetch function.
+
+## DB deliverable
+
+For this deliverable I stored and retrieved data from MongoDB.
+
+- **MongoDB Atlas database created** - done!
+- **Endpoints for data** - My stubbed out endpoints now process the data and send it to Mongo.
+- **Stores data in MongoDB** - done!

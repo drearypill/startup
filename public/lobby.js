@@ -23,3 +23,9 @@ async function create() {
   localStorage.setItem("opponentName", "");
   window.location.href = "play.html";
 }
+function PlayerNameSpan() {
+  const playerName = localStorage.getItem("userName");
+  const playerNameSpan = document.getElementById("player-name");
+  playerNameSpan.textContent = playerName;
+}
+PlayerNameSpan();

@@ -16,6 +16,7 @@ const moveEvent = "move";
 const gameStartEvent = "gameStart";
 const gameEndEvent = "gameEnd";
 const gameHostEvent = "gameHost";
+const gameRestartEvent = "gameRestart";
 
 let board_full = true;
 let play_board = ["", "", "", "", "", "", "", "", ""];
@@ -85,24 +86,24 @@ function getOpponentName() {
   return storageoName ?? "Mystery player";
 }
 
-async function updatePlayerNameSpan() {
+function updatePlayerNameSpan() {
   if (player === "X") {
-    const playerName = await getPlayerName();
+    const playerName = getPlayerName();
     const playerNameSpan = document.getElementById("player-name");
     playerNameSpan.textContent = playerName;
   } else {
-    const opponentName = await getOpponentName();
+    const opponentName = getOpponentName();
     const playerNameSpan = document.getElementById("player-name");
     playerNameSpan.textContent = opponentName;
   }
 }
-async function updateOpponentNameSpan() {
+function updateOpponentNameSpan() {
   if (player === "X") {
-    const opponentName = await getOpponentName();
+    const opponentName = getOpponentName();
     const opponentNameSpan = document.getElementById("opponent-name");
     opponentNameSpan.textContent = opponentName;
   } else {
-    const playerName = await getPlayerName();
+    const playerName = getPlayerName();
     const opponentNameSpan = document.getElementById("opponent-name");
     opponentNameSpan.textContent = playerName;
   }
@@ -125,9 +126,6 @@ function savePlayerList() {
 
 async function createPlayer(playerName) {
   try {
-    // Simulate an asynchronous operation (e.g., fetching data from a server)
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
     const existingPlayerIndex = playerList.findIndex(
       (player) => player.playerName === playerName
     );
@@ -314,6 +312,7 @@ const reset_board = () => {
   winner.classList.remove("draw");
   winner.innerText = "";
   render_board();
+
 };
 
 function broadcastEvent(from, type, value) {
@@ -359,6 +358,8 @@ socket.onmessage = async (event) => {
     addOpponentMove(msg.value);
   } else if (msg.type === messageEvent) {
     appendMsg("friend", msg.from, msg.value);
+  } else if (msg.type === gameRestartEvent) {
+    reset_board();
   }
 };
 

@@ -7,6 +7,7 @@ const gameStartEvent = "gameStart";
 const gameHostEvent = "gameHost";
 const gameEndEvent = "gameEnd";
 const gameErrorEvent = "gameError";
+const gameRestartEvent = "gameRestart";
 
 // Keep track of all the connections so we can forward messages
 let connections = [];
@@ -69,6 +70,12 @@ function peerProxy(httpServer) {
           }
         });
       } else if (msg.type === messageEvent) {
+        games.get(connection.game)?.players?.forEach((c) => {
+          if (c.id !== connection.id) {
+            c.ws.send(data);
+          }
+        });
+      } else if (msg.type === gameRestartEvent) {
         games.get(connection.game)?.players?.forEach((c) => {
           if (c.id !== connection.id) {
             c.ws.send(data);

@@ -31,7 +31,6 @@ function peerProxy(httpServer) {
     // Forward messages to everyone except the sender
     ws.on("message", async function message(data) {
       const msg = JSON.parse(data.toString());
-      console.log(msg);
       if (verbose) console.log({ msg });
       if (msg.type === gameEndEvent) {
         games.delete(connection.game);
@@ -54,7 +53,6 @@ function peerProxy(httpServer) {
           games.get(hostName).players[0].ws.send(data);
           games.get(hostName).players.push(connection);
         } catch (e) {
-          console.log(e);
           connection.game = undefined;
           connection.ws.send(
             JSON.stringify({
@@ -116,7 +114,6 @@ function activeplayers() {
     if (connection.game && games.get(connection.game)?.players?.length === 1)
       activeplayerslist.push(connection.game);
   }
-  console.log(activeplayerslist);
   return activeplayerslist;
 }
 module.exports = { peerProxy, activeplayers };

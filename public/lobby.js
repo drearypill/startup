@@ -5,7 +5,6 @@ async function loadPlayers() {
 
   const response = await fetch("/api/players");
   players = await response.json();
-  console.log(players);
   for (const player of players) {
     const name = document.createElement("option");
     name.textContent = player;

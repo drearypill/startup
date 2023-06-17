@@ -89,7 +89,6 @@ secureApiRouter.use(async (req, res, next) => {
 // GetPlayers
 secureApiRouter.get("/players", (_req, res) => {
   const players = activeplayers();
-  console.log(players);
   res.send(players);
 });
 

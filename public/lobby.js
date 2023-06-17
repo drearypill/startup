@@ -16,8 +16,10 @@ loadPlayers();
 user = localStorage.getItem("userName");
 // Function to store the selected value in local storage
 function storeSelection() {
-  localStorage.setItem("opponentName", dropdown.value);
-  window.location.href = "play.html";
+  if (dropdown.value) {
+    localStorage.setItem("opponentName", dropdown.value);
+    window.location.href = "play.html";
+  }
 }
 async function create() {
   localStorage.setItem("opponentName", "");

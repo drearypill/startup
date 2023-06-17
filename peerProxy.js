@@ -109,7 +109,6 @@ function peerProxy(httpServer) {
 
 function activeplayers() {
   const activeplayerslist = [];
-  console.log(connections);
   for (const connection of connections) {
     if (connection.game && games.get(connection.game)?.players?.length === 1)
       activeplayerslist.push(connection.game);

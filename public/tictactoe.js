@@ -1,7 +1,19 @@
-const player = "X";
-const computer = "O";
+let player, opponent;
+if (localStorage.getItem("opponentName") === "") {
+  player = "X";
+  opponent = "O";
+} else {
+  player = "O";
+  opponent = "X";
+}
 
-let board_full = false;
+const messageEvent = "message";
+const moveEvent = "move";
+const gameStartEvent = "gameStart";
+const gameEndEvent = "gameEnd";
+const gameHostEvent = "gameHost";
+
+let board_full = true;
 let play_board = ["", "", "", "", "", "", "", "", ""];
 
 const board_container = document.querySelector(".play-area");
@@ -9,12 +21,8 @@ const board_container = document.querySelector(".play-area");
 const winner_statement = document.getElementById("winner");
 var currentname = localStorage.getItem("userName");
 
-async function getPlayerName() {
-  const storageName = await localStorage.getItem("userName");
-  return storageName;
-}
-async function getWins() {
-  const playerListString = await localStorage.getItem("playerList");
+function getWins() {
+  const playerListString = localStorage.getItem("playerList");
   const playerList = JSON.parse(playerListString) || [];
   const playerName = localStorage.getItem("userName"); // Replace with the desired player name
 
@@ -25,8 +33,8 @@ async function getWins() {
   return 0; // Return 0 if the player is not found
 }
 
-async function getLosses() {
-  const playerListString = await localStorage.getItem("playerList");
+function getLosses() {
+  const playerListString = localStorage.getItem("playerList");
   const playerList = JSON.parse(playerListString) || [];
   const playerName = localStorage.getItem("userName"); // Replace with the desired player name
 
@@ -36,8 +44,8 @@ async function getLosses() {
   }
   return 0; // Return 0 if the player is not found
 }
-async function getTies() {
-  const playerListString = await localStorage.getItem("playerList");
+function getTies() {
+  const playerListString = localStorage.getItem("playerList");
   const playerList = JSON.parse(playerListString) || [];
   const playerName = localStorage.getItem("userName"); // Replace with the desired player name
 
@@ -47,24 +55,57 @@ async function getTies() {
   }
   return 0; // Return 0 if the player is not found
 }
-async function updateWinsSpan() {
-  const wins = await getWins();
+function updateWinsSpan() {
+  const wins = getWins();
   const winsSpan = document.getElementById("wins-id");
   winsSpan.textContent = wins;
 }
-async function updateLossesSpan() {
-  const losses = await getLosses();
+function updateLossesSpan() {
+  const losses = getLosses();
   const lossesSpan = document.getElementById("losses-id");
   lossesSpan.textContent = losses;
 }
-async function updateTiesSpan() {
-  const ties = await getTies();
+function updateTiesSpan() {
+  const ties = getTies();
   const tiesSpan = document.getElementById("ties-id");
   tiesSpan.textContent = ties;
 }
 
 let playerList = JSON.parse(localStorage.getItem("playerList")) || [];
+function getPlayerName() {
+  const storageName = localStorage.getItem("userName");
+  return storageName ?? "Mystery player";
+}
+function getOpponentName() {
+  const storageoName = localStorage.getItem("opponentName");
+  return storageoName ?? "Mystery player";
+}
 
+async function updatePlayerNameSpan() {
+  if (player === "X") {
+    const playerName = await getPlayerName();
+    const playerNameSpan = document.getElementById("player-name");
+    playerNameSpan.textContent = playerName;
+  } else {
+    const opponentName = await getOpponentName();
+    const playerNameSpan = document.getElementById("player-name");
+    playerNameSpan.textContent = opponentName;
+  }
+}
+async function updateOpponentNameSpan() {
+  if (player === "X") {
+    const opponentName = await getOpponentName();
+    const opponentNameSpan = document.getElementById("opponent-name");
+    opponentNameSpan.textContent = opponentName;
+  } else {
+    const playerName = await getPlayerName();
+    const opponentNameSpan = document.getElementById("opponent-name");
+    opponentNameSpan.textContent = playerName;
+  }
+}
+
+updatePlayerNameSpan();
+updateOpponentNameSpan();
 // Load player list from localStorage
 function loadPlayerList() {
   const playerListString = localStorage.getItem("playerList");
@@ -152,7 +193,7 @@ function incrementTies(playerName) {
 check_board_complete = () => {
   let flag = true;
   play_board.forEach((element) => {
-    if (element != player && element != computer) {
+    if (element != player && element != opponent) {
       flag = false;
     }
   });
@@ -163,7 +204,7 @@ const check_line = (a, b, c) => {
   return (
     play_board[a] == play_board[b] &&
     play_board[b] == play_board[c] &&
-    (play_board[a] == player || play_board[a] == computer)
+    (play_board[a] == player || play_board[a] == opponent)
   );
 };
 
@@ -188,18 +229,18 @@ const check_match = () => {
 };
 
 //check for and create key pairs
-if (localStorage.getItem("wins")) {
-} else {
-  const wins = localStorage.setItem("wins", 0);
-}
-if (localStorage.getItem("losses")) {
-} else {
-  const losses = localStorage.setItem("losses", 0);
-}
-if (localStorage.getItem("ties")) {
-} else {
-  const ties = localStorage.setItem("ties", 0);
-}
+// if (localStorage.getItem("wins")) {
+// } else {
+//   const wins = localStorage.setItem("wins", 0);
+// }
+// if (localStorage.getItem("losses")) {
+// } else {
+//   const losses = localStorage.setItem("losses", 0);
+// }
+// if (localStorage.getItem("ties")) {
+// } else {
+//   const ties = localStorage.setItem("ties", 0);
+// }
 
 const check_for_winner = () => {
   let res = check_match();
@@ -207,27 +248,17 @@ const check_for_winner = () => {
     winner.innerText = "You Win!";
     winner.classList.add("playerWin");
     board_full = true;
-    var value = localStorage.getItem("wins");
-    value = parseInt(value) + 1;
-    localStorage.setItem("wins", value);
     incrementWins(currentname);
-
     updateWinsSpan();
-  } else if (res == computer) {
+  } else if (res == opponent) {
     winner.innerText = "You Lost :(";
     winner.classList.add("computerWin");
     board_full = true;
-    var value = localStorage.getItem("losses");
-    value = parseInt(value) + 1;
-    localStorage.setItem("losses", value);
     incrementLosses(currentname);
     updateLossesSpan();
   } else if (board_full) {
     winner.innerText = "Draw!";
     winner.classList.add("draw");
-    var value = localStorage.getItem("ties");
-    value = parseInt(value) + 1;
-    localStorage.setItem("ties", value);
     incrementTies(currentname);
     updateTiesSpan();
   }
@@ -237,7 +268,7 @@ const render_board = () => {
   board_container.innerHTML = "";
   play_board.forEach((e, i) => {
     board_container.innerHTML += `<div id="block_${i}" class="block" onclick="addPlayerMove(${i})">${play_board[i]}</div>`;
-    if (e == player || e == computer) {
+    if (e == player || e == opponent) {
       document.querySelector(`#block_${i}`).classList.add("occupied");
     }
   });
@@ -253,23 +284,24 @@ const addPlayerMove = (e) => {
   if (!board_full && play_board[e] == "") {
     play_board[e] = player;
     game_loop();
+    broadcastEvent(getPlayerName(), moveEvent, e);
     addComputerMove();
   }
+};
+const handleInput = (selected) => {
+  play_board[selected] = opponent;
+  game_loop();
 };
 
 const addComputerMove = () => {
   if (!board_full) {
-    setTimeout(() => {
-      do {
-        selected = Math.floor(Math.random() * 9);
-      } while (play_board[selected] != "");
-      play_board[selected] = computer;
-      game_loop();
-    }, 500);
-    board_full = true; // 2000 milliseconds = 2 seconds
+    board_full = true;
   }
 };
-
+const addOpponentMove = (selected) => {
+  play_board[selected] = opponent;
+  game_loop();
+};
 const reset_board = () => {
   play_board = ["", "", "", "", "", "", "", "", ""];
   board_full = false;
@@ -280,5 +312,113 @@ const reset_board = () => {
   render_board();
 };
 
+function broadcastEvent(from, type, value) {
+  const event = {
+    from: from,
+    type: type,
+    value: value,
+  };
+  waitForSocketConnection(socket, function () {
+    socket.send(JSON.stringify(event));
+  });
+}
+// Make the function wait until the connection is made...
+function waitForSocketConnection(socket, callback) {
+  setTimeout(function () {
+    if (socket.readyState === 1) {
+      // console.log("Connection is made")
+      if (callback != null) {
+        callback();
+      }
+    } else {
+      // console.log("wait for connection...")
+      waitForSocketConnection(socket, callback);
+    }
+  }, 5); // wait 5 milisecond for the connection...
+}
+
 //initial render
 render_board();
+
+//websocket
+socket.onmessage = async (event) => {
+  const msg = JSON.parse(await event.data.text());
+  if (msg.type === gameStartEvent) {
+    const {
+      from: name,
+      value: { hostName },
+    } = msg;
+    localStorage.setItem("opponentName", name);
+    updateOpponentNameSpan();
+    board_full = false;
+  } else if (msg.type === moveEvent) {
+    addOpponentMove(msg.value);
+  } else if (msg.type === messageEvent) {
+    appendMsg("friend", msg.from, msg.value);
+  }
+};
+
+if (localStorage.getItem("opponentName") === "") {
+  broadcastEvent(getPlayerName(), gameHostEvent, { nice: "object" });
+} else {
+  broadcastEvent(getPlayerName(), gameStartEvent, {
+    hostName: getOpponentName(),
+  });
+}
+
+//CHAT STUFF
+
+// Display that we have opened the webSocket
+socket.onopen = (event) => {
+  appendMsg("system", "websocket", "connected");
+};
+
+// Display messages we receive from our friends
+// socket.onmessage = async (event) => {
+//   const text = await event.data.text();
+//   const chat = JSON.parse(text);
+//   appendMsg("friend", chat.name, chat.msg);
+// };
+
+// If the webSocket is closed then disable the interface
+socket.onclose = (event) => {
+  appendMsg("system", "websocket", "disconnected");
+  // document.querySelector("#name-controls").disabled = true;
+  document.querySelector("#chat-controls").disabled = true;
+};
+
+// Send a message over the webSocket
+function sendMessage() {
+  const msgEl = document.querySelector("#new-msg");
+  const msg = msgEl.value;
+  if (!!msg) {
+    appendMsg("me", "me", msg);
+    const name = localStorage.getItem("userName");
+    // const name = document.querySelector("#my-name").value;
+    broadcastEvent(currentname, messageEvent, msg);
+    msgEl.value = "";
+  }
+}
+
+// Create one long list of messages
+function appendMsg(cls, from, msg) {
+  const chatText = document.querySelector("#chat-text");
+  chatText.innerHTML =
+    `<div><span class="${cls}">${from}</span>: ${msg}</div>` +
+    chatText.innerHTML;
+}
+
+// Send message on enter keystroke
+const input = document.querySelector("#new-msg");
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
+
+// // Disable chat if no name provided
+// const chatControls = document.querySelector('#chat-controls');
+// const myName = document.querySelector('#my-name');
+// myName.addEventListener('keyup', (e) => {
+//   chatControls.disabled = myName.value === '';
+// });

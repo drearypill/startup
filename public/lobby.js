@@ -5,7 +5,8 @@ async function loadPlayers() {
 
   const response = await fetch("/api/players");
   players = await response.json();
-  for (player of players) {
+  console.log(players);
+  for (const player of players) {
     const name = document.createElement("option");
     name.textContent = player;
     dropdown.appendChild(name);
@@ -20,11 +21,6 @@ function storeSelection() {
   window.location.href = "play.html";
 }
 async function create() {
-  localStorage.setItem("opponentName", "Mystery Player");
-  const response = await fetch("/api/player", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ user }),
-  });
+  localStorage.setItem("opponentName", "");
   window.location.href = "play.html";
 }

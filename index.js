@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const app = express();
 const DB = require("./database.js");
+const { peerProxy, activeplayers } = require("./peerProxy.js");
 
 const authCookieName = "token";
 
@@ -22,7 +23,7 @@ app.use(express.static("public"));
 app.set("trust proxy", true);
 
 // Router for service endpoints
-var apiRouter = express.Router();
+const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // CreateAuth token for a new user
@@ -72,11 +73,11 @@ apiRouter.get("/user/:email", async (req, res) => {
 });
 
 // secureApiRouter verifies credentials for endpoints
-var secureApiRouter = express.Router();
+const secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
 
 secureApiRouter.use(async (req, res, next) => {
-  authToken = req.cookies[authCookieName];
+  const authToken = req.cookies[authCookieName];
   const user = await DB.getUserByToken(authToken);
   if (user) {
     next();
@@ -86,17 +87,18 @@ secureApiRouter.use(async (req, res, next) => {
 });
 
 // GetPlayers
-secureApiRouter.get("/players", async (_req, res) => {
-  const players = await DB.getPlayers();
+secureApiRouter.get("/players", (_req, res) => {
+  const players = activeplayers();
+  console.log(players);
   res.send(players);
 });
 
 // SubmitPlayer
-secureApiRouter.post("/player", async (req, res) => {
-  await DB.addPlayer(req.body);
-  const players = await DB.getPlayers();
-  res.send(players);
-});
+// secureApiRouter.post("/player", async (req, res) => {
+//   await DB.addPlayer(req.body);
+//   const players = await DB.getPlayers();
+//   res.send(players);
+// });
 
 // Default error handler
 app.use(function (err, req, res, next) {
@@ -117,9 +119,11 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);
 
 // let players = ["Thomas", "Lesley", "Jackson"];
 // function updatePlayers({ user }, players) {

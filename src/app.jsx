@@ -1,14 +1,23 @@
 import React from "react";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import { Login } from "./login/login";
-import { Play } from "./play/play";
 import { Lobby } from "./lobby/lobby";
+
+import { Play } from "./play/play";
 import { About } from "./about/about";
 import { AuthState } from "./login/authState";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.css";
 
-export default function App() {
+function App() {
+  const [userName, setUserName] = React.useState(
+    localStorage.getItem("userName") || ""
+  );
+  const currentAuthState = userName
+    ? AuthState.Authenticated
+    : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
+
   return (
     <BrowserRouter>
       <div className="body bg-dark text-light">
@@ -21,16 +30,21 @@ export default function App() {
                   Login
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="lobby">
-                  Lobby
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="play">
-                  Play
-                </NavLink>
-              </li>
+              {authState === AuthState.Authenticated && (
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="lobby">
+                    Lobby
+                  </NavLink>
+                </li>
+              )}
+              {authState === AuthState.Authenticated && (
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="play">
+                    Play
+                  </NavLink>
+                </li>
+              )}
+
               <li className="nav-item">
                 <NavLink className="nav-link" to="about">
                   About
@@ -39,14 +53,29 @@ export default function App() {
             </menu>
           </nav>
         </header>
+
         <Routes>
-          <Route path="/" element={<Login />} exact />
-          <Route path="/lobby" element={<Lobby />} />
-          <Route path="/play" element={<Play />} />
+          <Route
+            path="/"
+            element={
+              <Login
+                userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                  setAuthState(authState);
+                  setUserName(userName);
+                }}
+              />
+            }
+            exact
+          />
+          <Route path="/play" element={<Play userName={userName} />} />
           <Route path="/about" element={<About />} />
+          <Route path="/lobby" element={<Lobby />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
-        
+
         <footer>
           <span className="text-reset">Lily Draper</span>
           <a className="github" href="https://github.com/drearypill/startup">
@@ -65,3 +94,5 @@ function NotFound() {
     </main>
   );
 }
+
+export default App;

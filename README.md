@@ -98,3 +98,12 @@ For this deliverable I enabled realtime tictactoe online play and chatting.
 - **Frontend makes WebSocket connection** - done!
 - **Data sent over WebSocket connection** - done!
 - **WebSocket data displayed** - All user moves and chats display in realtime
+
+ ## React deliverable
+
+ For this deliverable I converted the application over to use React.
+
+ - **Bundled and transpiled** - done!
+ - **Components** - `Login`, `Lobby`, `Play`, and `About` are all components.
+ - **Router** - Routing between all components, and particularly from `Lobby` to `Play`.
+ - **Hooks** - `Play` uses hooks extensively to keep track of and display game information to all components in real time

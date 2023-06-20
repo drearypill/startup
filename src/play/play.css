@@ -119,3 +119,7 @@
   display: block;
   color: rgb(198, 198, 198);
 }
+
+.scores {
+  padding: 30 px;
+}

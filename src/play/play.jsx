@@ -345,10 +345,13 @@ export function Play() {
       <div
         style={{
           width: "100%",
-          padding: "24px",
+          paddingLeft: "24px",
+          paddingRight: "24px",
+          // paddingTop: "54px",
+
           justifyContent: "space-between",
           display: "flex",
-          marginTop: 100,
+          marginTop: 50,
         }}
       >
         <div className="players">
@@ -372,7 +375,7 @@ export function Play() {
           justifyContent: "space-evenly",
         }}
       >
-        <div style={{ width: "200px", minWidth: "200px" }}>
+        <div style={{ width: "300px", minWidth: "300px" }}>
           <div className="container">
             <h1 style={{ padding: "10px" }}>Play</h1>
             <h6 style={{ paddingBottom: "10px" }}>
@@ -403,17 +406,9 @@ export function Play() {
             <br />
             <h2 ref={winner}></h2>
             <br />
-            <button
-              onClick={() => {
-                reset_board();
-                broadcastEvent(tempPlayerName, gameRestartEvent, "null");
-              }}
-            >
-              Play Again
-            </button>
           </div>
         </div>
-        {/* <div
+        <div
           style={{
             display: "flex",
             flexDirection: "column",
@@ -421,37 +416,38 @@ export function Play() {
             minWidth: "200px",
           }}
         >
-          <h1 style={{ padding: "10px" }}>Chat</h1>
+          <h1 style={{ padding: "10px" }}>Scores</h1>
 
-          <fieldset id="chat-controls">
-            <input
-              id="new-msg"
-              type="text"
-              value={msg}
-              onChange={(newMsg) => {}}
-              //setmsg(newMsg.value)
-            />
-            <button onClick={() => {}}>Send</button>
-          </fieldset>
-          <div id="chat-text"></div>
-        </div> */}
-      </div>
-      <div
-        style={{
-          textAlign: "center",
-          height: "80px",
-          width: "100%",
-          color: "white",
-          paddingTop: "25px",
-          paddingBottom: "25px",
+          <div
+            className="scores"
+            style={{
+              textAlign: "center",
+              height: "80px",
+              width: "100%",
+              color: "white",
+              paddingTop: "25px",
+              marginBottom: "55px",
 
-          alignItems: "center",
-        }}
-      >
-        Your Scores:
-        <br />
-        Wins: {winsNumber} Ties:
-        {tiesNumber} Losses: {lossesNumber}
+              alignItems: "center",
+            }}
+          >
+            <div>Wins: {winsNumber}</div>
+            <div>
+              Ties:
+              {tiesNumber}
+            </div>
+            <div>Losses: {lossesNumber}</div>
+          </div>
+          <button
+            style={{ marginBottom: "20px" }}
+            onClick={() => {
+              reset_board();
+              broadcastEvent(tempPlayerName, gameRestartEvent, "null");
+            }}
+          >
+            Play Again
+          </button>
+        </div>
       </div>
     </main>
   );

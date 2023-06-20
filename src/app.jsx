@@ -22,77 +22,79 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="body bg-dark text-light">
-        <header className="container-fluid">
-          <nav className="navbar fixed-top navbar-dark">
-            <div className="navbar-brand">TicTacToe</div>
-            <menu className="navbar-nav">
-              <li className="nav-item">
-                <NavLink className="nav-link" to="">
-                  Login
-                </NavLink>
-              </li>
-              {authState === AuthState.Authenticated && (
+      <div>
+        <div className="body bg-dark text-light">
+          <header className="container-fluid">
+            <nav className="navbar fixed-top navbar-dark">
+              <div className="navbar-brand">TicTacToe</div>
+              <menu className="navbar-nav">
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="lobby">
-                    Lobby
+                  <NavLink className="nav-link" to="">
+                    Login
                   </NavLink>
                 </li>
-              )}
-              {authState === AuthState.Authenticated && (
+                {authState === AuthState.Authenticated && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="lobby">
+                      Lobby
+                    </NavLink>
+                  </li>
+                )}
+                {authState === AuthState.Authenticated && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="play">
+                      Play
+                    </NavLink>
+                  </li>
+                )}
+
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="play">
-                    Play
+                  <NavLink className="nav-link" to="about">
+                    About
                   </NavLink>
                 </li>
-              )}
+              </menu>
+            </nav>
+          </header>
 
-              <li className="nav-item">
-                <NavLink className="nav-link" to="about">
-                  About
-                </NavLink>
-              </li>
-            </menu>
-          </nav>
-        </header>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Login
+                  userName={userName}
+                  authState={authState}
+                  onAuthChange={(userName, authState) => {
+                    setAuthState(authState);
+                    setUserName(userName);
+                  }}
+                />
+              }
+              exact
+            />
+            <Route path="/play" element={<Play userName={userName} />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/lobby"
+              element={
+                <Lobby
+                  userName={userName}
+                  opponentName={opponentName}
+                  setOpponentName={setOpponentName}
+                />
+              }
+            />
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Login
-                userName={userName}
-                authState={authState}
-                onAuthChange={(userName, authState) => {
-                  setAuthState(authState);
-                  setUserName(userName);
-                }}
-              />
-            }
-            exact
-          />
-          <Route path="/play" element={<Play userName={userName} />} />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="/lobby"
-            element={
-              <Lobby
-                userName={userName}
-                opponentName={opponentName}
-                setOpponentName={setOpponentName}
-              />
-            }
-          />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-
-        <footer>
-          <span className="text-reset">Lily Draper</span>
-          <a className="github" href="https://github.com/drearypill/startup">
-            Source
-          </a>
-        </footer>
+          <footer>
+            <span className="text-reset">Lily Draper</span>
+            <a className="github" href="https://github.com/drearypill/startup">
+              Source
+            </a>
+          </footer>
+        </div>
       </div>
     </BrowserRouter>
   );

@@ -312,7 +312,6 @@ const reset_board = () => {
   winner.classList.remove("draw");
   winner.innerText = "";
   render_board();
-
 };
 
 function broadcastEvent(from, type, value) {

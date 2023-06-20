@@ -7,16 +7,25 @@ import "./lobby.css";
 export function Lobby({ userName, opponentName, setOpponentName }) {
   const navigate = useNavigate();
   const [opponentList, setOpponentList] = React.useState([]);
-
   React.useEffect(() => {
     // fetch game list from backend
-    fetch("/api/games")
+    fetch("/api/players")
       .then((response) => response.json())
-      .then((games) => setOpponentList(games));
+      .then((players) => {
+        setOpponentList(players);
+        console.log("avalible Games: ", players);
+      });
   }, []);
 
   const onClick = () => {
     localStorage.setItem("opponentName", opponentName);
+    setOpponentName(opponentName);
+    navigate("/play");
+  };
+  const onCreate = () => {
+    localStorage.setItem("userName", userName);
+    localStorage.setItem("opponentName", opponentName);
+
     setOpponentName(opponentName);
     navigate("/play");
   };
@@ -27,17 +36,19 @@ export function Lobby({ userName, opponentName, setOpponentName }) {
         <div>
           <h1>Create or join a game</h1>
           <div style={{ alignItems: "center" }}>
-            <Button className="button" variant="primary" onClick={onClick}>
+            <Button className="button" variant="primary" onClick={onCreate}>
               Host new game
             </Button>
             <Form.Select
               className="form-select"
               value={opponentName}
-              onChange={(e) => setType(e.currentTarget.value)}
+              onChange={(e) => setOpponentName(e.currentTarget.value)}
             >
               <option>Choose a game</option>
-              {opponentList.map(({ name }) => (
-                <option value={name}>{name}</option>
+              {opponentList.map((name, index) => (
+                <option key={index} value={name}>
+                  {name}
+                </option>
               ))}
             </Form.Select>
             <Button

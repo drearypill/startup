@@ -120,6 +120,8 @@ function activeplayers() {
     if (connection.game && games.get(connection.game)?.players?.length === 1)
       activeplayerslist.push(connection.game);
   }
+  console.log(connections);
+
   return activeplayerslist;
 }
 module.exports = { peerProxy, activeplayers };

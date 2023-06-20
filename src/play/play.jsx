@@ -45,6 +45,9 @@ export function Play() {
   const [opponent, setOpponent] = useState("");
   const [playerName, setPlayerName] = useState();
   const [opponentName, setOpponentName] = useState();
+  const [xName, setXName] = useState("");
+  const [oName, setOName] = useState("");
+
   const [playBoard, setPlayBoard] = useState([
     "",
     "",
@@ -140,10 +143,15 @@ export function Play() {
 
     if (!localStorage.getItem("opponentName")) {
       setPlayer("X");
+      setXName(tempPlayerName);
       setOpponent("O");
+      setOName(tempOpponentName);
     } else {
       setPlayer("O");
+      setOName(tempPlayerName);
+
       setOpponent("X");
+      setXName(tempOpponentName);
     }
   }, []);
   socket.onmessage = async (event) => {
@@ -188,6 +196,7 @@ export function Play() {
         value: { hostName },
       } = msg;
       localStorage.setItem("opponentName", name);
+      setOName(name);
 
       // updateOpponentNameSpan();
       setCanPlay(true);
@@ -339,17 +348,18 @@ export function Play() {
           padding: "24px",
           justifyContent: "space-between",
           display: "flex",
+          marginTop: 100,
         }}
       >
         <div className="players">
           <p>
             Player X:
-            <span id="player-name"></span>
+            {xName}
           </p>
         </div>
         <div>
           Player O:
-          <span id="opponent-name"></span>
+          {oName}
         </div>
       </div>
 
@@ -365,6 +375,13 @@ export function Play() {
         <div style={{ width: "200px", minWidth: "200px" }}>
           <div className="container">
             <h1 style={{ padding: "10px" }}>Play</h1>
+            <h6 style={{ paddingBottom: "10px" }}>
+              {canPlay
+                ? "Your Turn"
+                : oName
+                ? "Opponents Turn"
+                : "Waiting For Opponent"}
+            </h6>
 
             <div className="play-area">
               {playBoard.map((item, index) => {

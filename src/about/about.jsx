@@ -1,12 +1,32 @@
 import React from "react";
 
 export function About() {
+  const [quote, setQuote] = React.useState("Loading...");
+  const [quoteAuthor, setQuoteAuthor] = React.useState("unknown");
+
+  React.useEffect(() => {
+    fetch("https://api.quotable.io/random")
+      .then((response) => response.json())
+      .then((data) => {
+        setQuote(data.content);
+        setQuoteAuthor(data.author);
+      })
+      .catch();
+  }, []);
   return (
     <main>
       <div className="oneHalfSplit">
         <div className="halfSplit">
-          <div id="picture" className="picture-box">
-            <img width="300px" src="tic-tac-toe-game.jpeg" alt="random" />
+          <div id="picture" class="picture-box">
+            <img
+              style={{
+                backgroundColor: "white",
+                borderRadius: 24,
+              }}
+              width="300px"
+              src="https://play-lh.googleusercontent.com/IrkV8sl4ixD2BLJ0PHYUlMfldcG1DiYutbbtqnLg6fgyAjF9lsq_Be0UgmNmMhR2VA"
+              alt="random"
+            />
           </div>
         </div>
         <div>
@@ -16,7 +36,10 @@ export function About() {
             Players alternate marking claiming squares on the grid until one
             player claims three in a row or the grid is full
           </p>
-          <div id="quote"></div>
+          <div className="quote-box ">
+            <p className="quote">{quote}</p>
+            <p className="author">{quoteAuthor}</p>
+          </div>
         </div>
       </div>
     </main>
